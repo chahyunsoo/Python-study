@@ -48,15 +48,18 @@
 
 #####상속#####
 class Unit:
-    def __init__(self,name,hp):
+    def __init__(self,name,hp,speed):
         self.name=name
         self.hp=hp
+        self.speed=speed
         # print("{0} 유닛이 생성되었습니다".format(self.name))
         # print("체력 {0},공격력 {1}".format(self.hp,self.damage))
-
+    def move(self,location):
+        print("[지상 유닛 이동]")
+        print("{0} : {1} 방향으로 이동합니다. [속도 {2}]".format(self.name,location,self.speed))
 class AttackUnit(Unit): #Unit을 상속
-    def __init__(self,name,hp,damage):
-        Unit.__init__(self,name,hp)
+    def __init__(self,name,hp,speed,damage):
+        Unit.__init__(self,name,hp,speed)
         self.damage=damage
     
     def attack(self,location):
@@ -70,12 +73,25 @@ class AttackUnit(Unit): #Unit을 상속
         if self.hp <=0:
             print("{0} :파괴되었습니다.".format(self.name))
 
+class Flyable:
+    def __init__(self,flying_speed):
+        self.flying_speed=flying_speed
 
+    def fly(self,name,location):
+        print("{0} : {1} 방향으로 날아갑니다, [속도 {2}]".format(name,location,self.flying_speed)) 
 
-firebat1=AttackUnit("파이어뱃",50,16)
-firebat1.attack("5시")
+class FlyableAttackUnit(AttackUnit,Flyable):
+    def __init__(self,name,hp,damage,flying_speed):
+        AttackUnit.__init__(self,name,hp,0,damage)
+        Flyable.__init__(self,flying_speed)
 
-#두 번
-firebat1.damaged(25)
-firebat1.damaged(25)
+valkyrie=FlyableAttackUnit("발키리",200,6,5)
+valkyrie.fly(valkyrie.name,"3시")
+
+# firebat1=AttackUnit("파이어뱃",50,16)
+# firebat1.attack("5시")
+
+# #두 번
+# firebat1.damaged(25)
+# firebat1.damaged(25)
 
