@@ -4,3 +4,4 @@ for line in lines:
     print(line,end="")
     
 score_file.close()
+score_file.close()
