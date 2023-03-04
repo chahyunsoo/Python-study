@@ -18,7 +18,7 @@ while(True):
             waiting+=1
             chicken-=order
         if chicken==0:
-                raise SoldOutError
+            raise SoldOutError
             
     except ValueError:
         print("잘못된 값을 입력하였습니다.")
